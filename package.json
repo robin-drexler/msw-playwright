@@ -1,0 +1,20 @@
+{
+  "name": "playwright-msw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mswjs/interceptors": "^0.13.5",
+    "headers-polyfill": "^3.0.4",
+    "msw": "^0.38.1",
+    "patch-package": "^6.4.7",
+    "playwright": "^1.19.2"
+  }
+}
