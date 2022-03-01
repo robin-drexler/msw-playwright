@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist && rollup -c"
   },
-  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,5 +15,14 @@
     "msw": "^0.38.1",
     "patch-package": "^6.4.7",
     "playwright": "^1.19.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "rollup": "^2.68.0",
+    "rollup-plugin-node-externals": "^4.0.0",
+    "tsc-watch": "^4.6.0",
+    "typescript": "^4.6.2"
   }
 }
