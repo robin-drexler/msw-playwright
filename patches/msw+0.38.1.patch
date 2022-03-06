@@ -1,9 +1,0 @@
-diff --git a/node_modules/msw/node/lib/index.js b/node_modules/msw/node/lib/index.js
-index 9b63c99..7407e19 100644
---- a/node_modules/msw/node/lib/index.js
-+++ b/node_modules/msw/node/lib/index.js
-@@ -8211,3 +8211,4 @@ const setupServer = createSetupServer(
- ClientRequest.interceptClientRequest, XMLHttpRequest.interceptXMLHttpRequest);
- 
- exports.setupServer = setupServer;
-+exports.createSetupServer = createSetupServer;

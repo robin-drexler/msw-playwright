@@ -1,10 +1,8 @@
 import { chromium, type Browser, type Page, type Route } from "playwright";
 import { rest } from "msw";
-import { patchCreateSetupServerIntoExistence } from "./patchCreateSetupServer";
+import { importCreateSetupServer } from "./patchCreateSetupServer";
 
-patchCreateSetupServerIntoExistence();
-
-const { createSetupServer } = require("msw/node/lib/index");
+const { createSetupServer } = importCreateSetupServer();
 
 import {
   type Observer,
@@ -15,7 +13,7 @@ import {
 
 import { Headers, flattenHeadersObject } from "headers-polyfill";
 
-function createServerForPage(page: Page) {
+export function createServerForPage(page: Page) {
   function createInterceptorModuleForPage(page: Page) {
     return function interceptor(observer: Observer, resolver: Resolver) {
       function routeHandler() {

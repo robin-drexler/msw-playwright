@@ -1,6 +1,9 @@
 import { readFileSync, appendFileSync } from "fs";
 
-export function patchCreateSetupServerIntoExistence() {
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+function patchCreateSetupServerIntoExistence() {
   const mswLibPath = require.resolve("msw/node/lib/index");
   const mswLibPathContent = readFileSync(mswLibPath, "utf8");
 
@@ -12,4 +15,10 @@ export function patchCreateSetupServerIntoExistence() {
     mswLibPath,
     "\nexports.createSetupServer = createSetupServer;\n"
   );
+}
+
+export function importCreateSetupServer() {
+  patchCreateSetupServerIntoExistence();
+
+  return require("msw/node/lib/index");
 }
