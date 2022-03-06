@@ -1,5 +1,9 @@
 import { chromium, type Browser, type Page, type Route } from "playwright";
 import { rest } from "msw";
+import { patchCreateSetupServerIntoExistence } from "./patchCreateSetupServer";
+
+patchCreateSetupServerIntoExistence();
+
 const { createSetupServer } = require("msw/node/lib/index");
 
 import {

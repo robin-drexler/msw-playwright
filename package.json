@@ -13,7 +13,6 @@
     "@mswjs/interceptors": "^0.13.5",
     "headers-polyfill": "^3.0.4",
     "msw": "^0.38.1",
-    "patch-package": "^6.4.7",
     "playwright": "^1.19.2"
   },
   "devDependencies": {
