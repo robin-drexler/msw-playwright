@@ -18,7 +18,7 @@ export default {
   ],
   output: [
     {
-      file: `dist/${name}.js`,
+      file: `dist/${name}.cjs`,
       format: "cjs",
       sourcemap: true,
     },

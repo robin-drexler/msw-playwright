@@ -1,5 +1,5 @@
 import { chromium, type Browser, type Page, type Route } from "playwright";
-import { rest } from "msw";
+import { setupServer } from "msw/node";
 import { importCreateSetupServer } from "./patchCreateSetupServer";
 
 const { createSetupServer } = importCreateSetupServer();
@@ -13,7 +13,7 @@ import {
 
 import { Headers, flattenHeadersObject } from "headers-polyfill";
 
-export function createServerForPage(page: Page) {
+export function setupServerForPage(page: Page): typeof setupServer {
   function createInterceptorModuleForPage(page: Page) {
     return function interceptor(observer: Observer, resolver: Resolver) {
       function routeHandler() {
@@ -83,44 +83,3 @@ export function createServerForPage(page: Page) {
 
   return createSetupServer(createInterceptorModuleForPage(page));
 }
-
-/**
- *
- * @param {import('playwright').Browser} browser
- */
-async function doStuff(browser: Browser) {
-  const page = await (await browser.newContext()).newPage();
-  const handlers = [
-    rest.get("https://iframesarelife.com", (req, res, ctx) => {
-      return res(
-        ctx.xml(
-          "<html><body><h1>Hello from msw-mockediFrame</h1></body></html>"
-        )
-      );
-    }),
-  ];
-
-  const server = createServerForPage(page)(...handlers);
-
-  server.listen({ onUnhandledRequest: "warn" });
-
-  page.route("https://example.org", (route) => {
-    route.fulfill({
-      body: `
-        <h1>Hello World</h1>
-        <img src="http://placekitten.com/200/300" />
-        <iframe src="https://iframesarelife.com" />
-      `,
-    });
-  });
-
-  await page.goto("https://example.org");
-}
-
-(async () => {
-  const browser = await chromium.launch({ headless: false });
-  await doStuff(browser);
-  // await doStuff(browser);
-
-  // browser.close();
-})();
